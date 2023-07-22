@@ -2,15 +2,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 /**
- * _putchar - prints characters to stdout
- * @c: character to print
- * Return: c
- */
-static int _putchar(char c)
-{
-	return (c);
-}
-/**
  * print_string - prints null terminated string to stdout
  * @str: pointer to string
  * Return: characters to be printed
@@ -33,12 +24,15 @@ static int print_string(const char *str)
  */
 int _printf(const char *format, ...)
 {
+	int count = 0;
+
+	char c;
+
+	const char *str;
+
 	va_list args;
 
 	va_start(args, format);
-
-	int count = 0;/*Keeps track of total characters*/
-
 	while (*format)
 	{
 		if (*format == '%')
@@ -47,13 +41,11 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					char c = va_arg(args, int);
-
+					c = va_arg(args, int);
 					count += _putchar(c);
 					break;
 				case 's':
-					const char *str = va_arg(args, const char *);
-
+					str = va_arg(args, const char *);
 					count += print_string(str);
 					break;
 				case '%':
