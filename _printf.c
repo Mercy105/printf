@@ -29,11 +29,8 @@ int _printf(const char *format, ...)
 				format++;
 				continue;
 			}
-			if (*format == 's' || *format == 'c' || *format == ' ')
+			if (*format == 's' || *format == 'c' || *format == ' ' || *format == '\0')
 				return (-1);
-			_putchar('%');
-			_putchar(*format);
-			count += 2;
 		}
 		else
 		{
