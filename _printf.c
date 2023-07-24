@@ -1,44 +1,52 @@
-#include "main.h"
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <unistd.h>
+#include "main.h"
 /**
  * _printf - produces output according to a format
- * @format: contains characeters and specifiers
- * Return: output
+ * @format: The specified format
+ *
+ * Return: The number of characters that were printed
  */
+int (*_selec_func(char c))(va_list);
 int _printf(const char *format, ...)
 {
-	int count = 0;
+	int  i = 0;
+
+	int n = 0;
 
 	va_list args;
 
+	int (*func)(va_list);
+
 	va_start(args, format);
-	if (!format)
-		return (-1);
-	while (*format)
+	while (format[i] != '\0')
 	{
-		if (*format == '%')
+		if (format[i] != '%')
 		{
-			format++;
-			if (*format == '\0')
-				return (-1);
-			if (*format == '%')
-			{
-				_putchar('%');
-				count++;
-				format++;
-				continue;
-			}
-			if (*format == 's' || *format == 'c' || *format == ' ' || *format == '\0')
-				return (-1);
+			_putchar(format[i]);
+			n++;
+		}
+		else if (format[i + 1] == '%')
+		{
+			i++;
+			_putchar('%');
+			n++;
 		}
 		else
 		{
-			_putchar(*format);
-			count++;
+			func = _selec_func(format[i + 1]);
+			if (func != NULL)
+			{
+				n += func(args);
+				i++;
+			}
 		}
-		format++;
+
+		i++;
 	}
 	va_end(args);
-	return (count);
+	return (n);
 }
