@@ -1,49 +1,47 @@
 #include "main.h"
 #include <stdio.h>
-#include <limits.h>
+#include <stdarg.h>
 /**
  * _printf - produces output according to a format
  * @format: contains characeters and specifiers
- * Return: Length of output string
+ * Return: output
  */
 int _printf(const char *format, ...)
 {
-	int (*pfunc)(va_list, flags_t *);
-
-	const char *p;
+	int count = 0;
 
 	va_list args;
 
-	flags_t flags = {0, 0, 0};
-
-	int count = 0;
-
 	va_start(args, format);
-	if (!format || (format[0] == '%' && !format[1]))
+	if (!format)
 		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
-		return (-1);
-	for (p = format; *p; p++)
+	while (*format)
 	{
-		if (*p == '%')
+		if (*format == '%')
 		{
-			p++;
-			if (*p == '%')
+			format++;
+			if (*format == '\0')
+				return (-1);
+			if (*format == '%')
 			{
-				count += _putchar('%');
+				_putchar('%');
+				count++;
+				format++;
 				continue;
 			}
-			while (get_flag(*p, &flags))
-				p++;
-			pfunc = get_print(*p);
-			count += (pfunc)
-				? pfunc(args, &flags)
-				: _printf("%%%c", *p);
+			if (*format == 's' || *format == 'c' || *format == ' ')
+				return (-1);
+			_putchar('%');
+			_putchar(*format);
+			count += 2;
 		}
 		else
-			count += _putchar(*p);
+		{
+			_putchar(*format);
+			count++;
+		}
+		format++;
 	}
-	_putchar(-1);
 	va_end(args);
 	return (count);
 }
