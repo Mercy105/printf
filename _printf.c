@@ -1,52 +1,49 @@
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stddef.h>
-#include <unistd.h>
 #include "main.h"
+#include <limits.h>
+#include <stdio.h>
+
 /**
  * _printf - produces output according to a format
- * @format: The specified format
- *
- * Return: The number of characters that were printed
+ * @format: format string containing the characters and the specifiers
+ * Return: length of the formatted output string
  */
-int (*_selec_func(char c))(va_list);
+int (*get_print(char s))(va_list, flags_t *);
+int get_flag(char s, flags_t *f);
 int _printf(const char *format, ...)
 {
-	int  i = 0;
+	int (*pfunc)(va_list, flags_t *);
+	const char *p;
+	va_list arguments;
+	flags_t flags = {0, 0, 0};
 
-	int n = 0;
+	register int count = 0;
 
-	va_list args;
-
-	int (*func)(va_list);
-
-	va_start(args, format);
-	while (format[i] != '\0')
+	va_start(arguments, format);
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = format; *p; p++)
 	{
-		if (format[i] != '%')
+		if (*p == '%')
 		{
-			_putchar(format[i]);
-			n++;
-		}
-		else if (format[i + 1] == '%')
-		{
-			i++;
-			_putchar('%');
-			n++;
-		}
-		else
-		{
-			func = _selec_func(format[i + 1]);
-			if (func != NULL)
+			p++;
+			if (*p == '%')
 			{
-				n += func(args);
-				i++;
+				count += _putchar('%');
+				continue;
 			}
-		}
-
-		i++;
+			while (get_flag(*p, &flags))
+				p++;
+			pfunc = get_print(*p);
+			count += (pfunc)
+				? pfunc(arguments, &flags)
+				: _printf("%%%c", *p);
+		} else
+			count += _putchar(*p);
 	}
-	va_end(args);
-	return (n);
+	_putchar(-1);
+	va_end(arguments);
+	return (count);
+
 }
