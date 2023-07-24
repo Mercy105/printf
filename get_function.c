@@ -2,6 +2,7 @@
 /**
  * get_function - function specifiers
  * @con_spec: conversion specifiers
+ * @args: argument
  * Return: char count
  */
 int get_function(char con_spec, va_list args)

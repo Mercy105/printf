@@ -5,7 +5,6 @@
  * @format: character string
  * Return: count of chars
  */
-int get_function(char s, va_list args);
 int _printf(const char *format, ...)
 {
 	int i = 0;

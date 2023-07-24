@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * struct format - structure for format
+ * struct specifiers - specifiers the format
  * @specifiers: struct format
  * @f: function used
  */
