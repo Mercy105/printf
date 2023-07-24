@@ -1,4 +1,6 @@
 #include "main.h"
+#include <limits.h>
+#include <stdio.h>
 
 /**
  * to_Binary - convert unsigned int to binary.
