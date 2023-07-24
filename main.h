@@ -2,28 +2,28 @@
 #define MAIN_H
 #include <stdarg.h>
 #include <stdio.h>
-#include <unistd.h>
-
-#define UNSED(x) (void)(x)
-#define BUFF_SIZE 1024
-/*FLAGS*/
-#define F_MINUS 1
-#define F_PLUS 2
-#define F_ZERO 4
-#define F_HASH 8
-#define F_SPACE 16
-
-/*SIZES*/
-#define S_LONG 2
-#define S_SHORT 1
+#include <stdlib.h>
 /**
- * struct fmt - struct op
- * by donnelly and mercy
- * @gfmt: The format
- * @@fn: The fuction Associated
+ * struct format - structure for format
+ * @specifiers: struct format
+ * @f: function used
  */
-struct fmt
+typedef struct specifiers
 {
-	char fmt;
-	int (*fn)(va_list, char[], int, int, int, int);
-}
+	char specifiers;
+
+	int (*f)(va_list);
+} specifiers_t;
+/* prototypes */
+int _printf(const char *format, ...);
+int get_function(char s, va_list args);
+int _putchar(char c);
+
+/* conversion specifiers */
+int print_char(va_list args);
+int print_string(va_list args);
+int print_digit(va_list args);
+int print_mod(va_list args);
+int print_rev_string(va_list args);
+
+#endif
