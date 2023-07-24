@@ -1,47 +1,22 @@
 #include "main.h"
-#include <limits.h>
-#include <stdio.h>
-
+#include <unistd.h>
+#include <stdarg.h>
 /**
- * _print_str - prints a string
- * @string: string to be printed
- * Return: length of printed characters
+ * print_string - prints string
+ * @args: argument
+ * Return: character count
  */
-
-int _print_str(char *string)
+int print_string(va_list args)
 {
-	int count = 0;
+	int i;
+	int count_f = 0;
+	char *str = va_arg(args, char *);
 
-	if (string != NULL)
-		while (*string)
-		{
-			_putchar(*string++);
-			count += 1;
-		}
-	else
-		return (_print_str("(null)"));
-	return (count);
-}
-
-/**
- * _print_int - prints an integer
- * @var: variable to be printed
- * Return: length of printed characters
- */
-
-int _print_int(long int var)
-{
-	int count = 0;
-
-	if (var < 0)
-	{
-		_putchar('-');
-		count += 1;
-		var = -var;
-	}
-	if (var / 10)
-		count += _print_int(var / 10);
-	_putchar(var % 10 + '0');
-	count += 1;
-	return (count);
+	if (!str)
+		str = "(null)";
+	if (str[0] == '\0')
+		return (-1);
+	for (i = 0; str[i] != '\0'; i++)
+		count_f += _putchar(str[i]);
+	return (count_f);
 }
