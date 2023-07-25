@@ -1,5 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
+#include <stdarg.h>
+#include <unistd.h>
 #define NULL ((void *)0)
 
 int _putchar(char c);
