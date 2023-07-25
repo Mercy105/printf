@@ -7,5 +7,9 @@
  */
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+	if (fwrite(&c, sizeof(char), 1, stdout) != 1)
+	{
+		return (-1);
+	}
+	return (1);
 }
