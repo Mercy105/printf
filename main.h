@@ -17,12 +17,9 @@ typedef struct specifiers
 	int (*f)(va_list);
 } specifiers_t;
 
-/* prototypes */
 int _printf(const char *format, ...);
 int get_function(char con_spec, va_list args);
 int _putchar(char c);
-
-/* conversion specifiers */
 int print_char(va_list args);
 int print_string(va_list args);
 int print_digit(va_list args);
