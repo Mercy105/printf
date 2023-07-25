@@ -1,4 +1,9 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <stdarg.h>
+#include <unistd.h>
 /**
  * _printf - produce output according to specifier
  * @format: character string
