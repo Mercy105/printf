@@ -1,8 +1,5 @@
 #include "main.h"
 <<<<<<< HEAD
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
 /*
  * _print_str - prints a string
  * @string: string to be printed

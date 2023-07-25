@@ -1,12 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include <stdarg.h>
 <<<<<<< HEAD
-#include <unistd.h>
 #define NULL ((void *)0)
-=======
-#include <stdio.h>
-#include <stdlib.h>
+=====
 /**
  * struct specifiers - specifiers the format
  * @specifiers: struct format

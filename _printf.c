@@ -1,5 +1,4 @@
 #include "main.h"
-#include <unistd.h>
 /**
  * _printf - produce output according to specifier
  * @format: character string
